@@ -4,53 +4,111 @@ public class Coordenadas {
 
 	private char X;
 	private int Y;
-	
 
-	public Coordenadas(char x,int y) {
-		
-		this.X=x;
-		this.Y=y;
-		
+	public Coordenadas(char x, int y) {
+
+		this.X = x;
+		this.Y = y;
+
 	}
 
+	
+
+	public int getXInt() {
+
+		return this.X - 'A';
+
+	}
+
+	public int getYInt() {
+
+		return Y - 1;
+
+	}
 
 	public char getCoorX() {
 		return X;
 	}
-
-
+	
 	public void setCoorX(char x) {
 		this.X = x;
 	}
 
-
 	public int getCoorY() {
 		return Y;
 	}
+	
+	public void setCoorY(int y) {
+		Y = y;
+	}
+
+	public Coordenadas up() {
+		if (this.Y - 1 < 1)
+			return this;
+		else
+			return new Coordenadas(this.X, this.Y - 1);
+	}
 
 	
-	public Coordenadas up() {
-        return new Coordenadas(this.X ,this.Y-1 );
-    }
-    public Coordenadas down() {
+	public boolean existe() {
+		
+		
+		if(this.getXInt()>8 || this.getYInt() >8 || this.getXInt()<0 || this.getYInt() <0)
+			return false;
+		else
+			return true;
+	}
+	
+	
+	public Coordenadas down() {
+		if (this.Y + 1 > 8)
+			return this;
+		else
+			return new Coordenadas(this.X, this.Y + 1);
 
-        return new Coordenadas(this.X ,this.Y+1  );
+	}
 
-    }
-    public Coordenadas right() {
+	
+	public boolean equals(Object o) {
+		
+		Coordenadas a = (Coordenadas) o;
+		
+		if(this.X == a.X && this.Y == a.Y)
+			return true;
+		else
+			return false;
+		
+	
+		
+	}
+	
 
-        return new Coordenadas((char) (this.X+1) ,this.Y );
+	
+	public Coordenadas right() {
 
-    }
+		if ((this.X + 1) > 72)
+			return this;
+		else
+			return new Coordenadas((char) (this.X + 1), this.Y);
 
-    public Coordenadas left() {
+	}
 
-        return new Coordenadas((char) (this.X-1),this.Y);
-    }
+	public Coordenadas left() {
 
-    public String toString() {
-    	
-    	return "("+X+","+Y+")";
-    }
-    
+		if ((this.X - 1) < 65)
+			return this;
+		else
+			return new Coordenadas((char) (this.X - 1), this.Y);
+	}
+
+	public String toString() {
+
+		return "(" + X + "," + Y + ")";
+	}
+
+
+
+
+
+
 }

@@ -1,6 +1,9 @@
 package fichas;
 
-public class Ficha {
+import java.util.ArrayList;
+import java.util.Iterator;
+
+public abstract class Ficha  {
 
 	public static enum Shape{
 		white_queen("Q",Color.white),white_king("K",Color.white),white_bishop("B",Color.white),
@@ -16,11 +19,19 @@ public class Ficha {
 	
 		Shape(String forma, Color color) {
 			this.forma=forma;
-			this.color=color;
+			this.setColor(color);
 		}
 	
 		 public String toString() {
 			return forma;
+		}
+
+		public Color getColor() {
+			return color;
+		}
+
+		public void setColor(Color color) {
+			this.color = color;
 		}
 		
 	}
@@ -29,16 +40,78 @@ public class Ficha {
 	}
 	private Shape shape;
 	private Coordenadas coor;
+	private ArrayList<Coordenadas> coordenadasPosibles = new ArrayList<Coordenadas>();
+
+
+	public Color getColor() {
+		return this.shape.color;
+	}
+	
+	public Coordenadas getCoor() {
+		return coor;
+	}
+
+
+	public Coordenadas getCoordenadas() {
+		return coor;
+	}
+	
+	public void setCoor(Coordenadas coor) {
+		this.coor = coor;
+	}
+
+	
+
+	public ArrayList<Coordenadas> getCoordenadasPosibles() {
+		return coordenadasPosibles;
+	}
+
+	public void setCoordenadasPosibles(ArrayList<Coordenadas> coordenadasPosibles) {
+		this.coordenadasPosibles = coordenadasPosibles;
+	}
 
 	public Ficha(){
 		
 		
 	}
+	
+	
+	
+	public boolean equals(Object object)
+    {
+        boolean sameSame = false;
 
+        if (object != null && object instanceof Coordenadas)
+        {
+            sameSame = this.coor.getCoorX() == ((Coordenadas) object).getCoorX() && this.coor.getCoorY() == ((Coordenadas) object).getCoorY() ;
+        }
+
+        return sameSame;
+    }
+	
+
+	public boolean contains(Object o) {
+		Coordenadas a = (Coordenadas) o;
+
+		
+		for(Coordenadas b : coordenadasPosibles) {
+			
+			if (b.equals(a))
+				return true;
+			
+		}
+ 
+		return false;
+	}
 	
 	public String toString() {
 		return shape.toString();
+		
+		
+
 	}
+	
+	public void calcularCoordenadas(Celda[][] t) {}
 
 
 

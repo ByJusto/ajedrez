@@ -6,7 +6,7 @@ import fichas.Ficha.Color;
 
 public class Tablero {
 
-	private Celda[][] tablero = new Celda[8][8];
+	protected Celda[][] tablero = new Celda[8][8];
 
 	public Tablero() {
 		
@@ -14,6 +14,11 @@ public class Tablero {
 
 
 				
+	}
+	
+	public Celda[][] celdasTablero(){
+		return tablero;
+		
 	}
 	
 	public String printTablero() {
@@ -51,7 +56,12 @@ public class Tablero {
 		
 		"\t"+"8"+"\t"+"║ "+printF(7,0)+" │ "+printF(7,1)+" │ "+printF(7,2)+" │ "+printF(7,3)+" │ "+printF(7,4)+" │ "+printF(7,5)+" │ "+printF(7,6)+" │ "+printF(7,7)+" ║"+"\t"+"8"+"\n"+
 		"\t"+" "+"\t"+"╚═══╧═══╧═══╧═══╧═══╧═══╧═══╧═══╝"+"\t"+" "+"\n" +
-		"\t"+" "+"\t"+"  A   B   C   D   E   F   G   H  "+"\t"+" "+"\n";
+		"\t"+" "+"\t"+"  A   B   C   D   E   F   G   H  "+"\t"+" "+"\n"+"\n"+"\n"+
+		"\t"+" "+"╔═══╤═══╤═══╤═══╤═══╤═══╤═══╤═══╤═══╤═══╤═══╤═══╗"+"\t"+" "+"\n"+
+		"\t"+" "+"║ ? │ ? │ ? │ ? │ ? │ ? │ ? │ ? │ ? │ ? │ ? │ ? ║"+"\t"+" "+"\n"+
+		"\t"+" "+"╟───┼───┼───┼───┼───┼───┼───┼───┼───┼───┼───┼───╢"+"\t"+" "+"\n"+
+		"\t"+" "+"║ 1 │ 1 │ 2 │ 2 │ 2 │ 8 │ 1 │ 1 │ 2 │ 2 │ 2 │ 8 ║"+"\t"+" "+"\n"+
+		"\t"+" "+"╚═══╧═══╧═══╧═══╧═══╧═══╧═══╧═══╧═══╧═══╧═══╧═══╝"+"\t"+" "+"\n";
 	
 
 		
@@ -67,7 +77,7 @@ public class Tablero {
 		for(int i = 0; i<8;i++) {
 			for(int a = 0; a<8;a++) {
 				
-				tablero[i][a] = new Celda();
+				tablero[i][a] = new Celda(null);
 				
 			}
 		}
@@ -88,7 +98,7 @@ public class Tablero {
 		}
 		
 		tablero[7][0] = new Celda(new Rook(Color.black,new Coordenadas('A',8)));
-		tablero[7][1] = new Celda(new Knight(Color.black,new Coordenadas('B',8)));	
+		tablero[3][1] = new Celda(new Knight(Color.black,new Coordenadas('B',4)));	
 		tablero[7][2] = new Celda(new Bishop(Color.black,new Coordenadas('C',8)));		
 		tablero[7][3] = new Celda(new Queen(Color.black,new Coordenadas('D',8)));		
 		tablero[7][4] = new Celda(new King(Color.black,new Coordenadas('E',8)));		
@@ -102,11 +112,49 @@ public class Tablero {
 
 		}
 		 
+				calculoInicial();
+
 		
 		
 		
 	}
-	
+	public boolean moveFicha(char x1,int  y1,char x2,int y2) {
+		
+		
+		int xo = (int) x1 - 'A';
+		int xd = (int) x2 - 'A';
+		int yd = y2 - 1;
+		int yo = y1 -1;
+		Coordenadas destino= new Coordenadas(x2, yd);
+		printCoorPos(3,1);
+
+		
+		if(tablero[yo][xo].isEmpty()) {
+			
+			System.out.println("No hay ficha");
+			return false;
+			
+		}else if(tablero[yo][xo].getFicha().getCoordenadasPosibles().contains(destino)) {
+			
+			tablero[yd][xd].colocarFicha(tablero[yo][xo].getFicha());
+			tablero[yo][xo].deleteFicha();
+			tablero[yd][xd].getFicha().setCoor(new Coordenadas((char)(xd +'A'),yd));
+			System.out.println("Ficha movida a : " + tablero[yd][xd].getFicha().getCoor());
+			
+			return true;
+
+			
+		}
+		System.out.println("Coordenada no contenida");
+
+		return false;
+			
+		
+		
+		
+		
+	}
+		
 	public String printTableroa() {
 		
 
@@ -135,5 +183,27 @@ public class Tablero {
 		
 	}
 	
+	public void printCoorPos(int a,int b) {
+		
+		System.out.println(tablero[a][b].getFicha().getCoordenadasPosibles().toString());
+		
+		
+	}
+	
+	public void calculoInicial() {
+		
+		for(int i = 0;i<tablero.length;i++) {
+			for(int a =0;a<tablero[0].length;a++) {
+				System.out.println("A");
+				if(!tablero[i][a].isEmpty())
+					System.out.println("B");
+					tablero[i][a].getFicha().calcularCoordenadas(this.tablero);
+			}
+			
+			
+		}
+		
+		
+	}
 	
 }
