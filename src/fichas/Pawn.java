@@ -6,14 +6,12 @@ import fichas.Ficha.Color;
 
 public class Pawn extends Ficha{
 
-	private Color color;
-	private Coordenadas coordenadas;
+
 	private boolean firstmove = true;
-	private ArrayList<Coordenadas> coordenadasPosibles = new ArrayList<Coordenadas>();
 
 	
 	public Pawn(Color color,Coordenadas coordenadas) {
-		super();
+		super(coordenadas, color);
 
 		this.color=color;
 		this.coordenadas=coordenadas;
@@ -31,10 +29,16 @@ public class Pawn extends Ficha{
 	
 public void calcularCoordenadas(Celda[][] t) {
 		
-		coordenadasPosibles.clear();
+		if(this.color==Color.white)
+			calcularBlanco(t);
+		else
+			calcularNegro(t);	
 		
-		//t[coordenadas.up().up().right().getYInt()][coordenadas.up().up().right().getXInt()].getFicha().getColor();		
-		//try {
+	}
+public void calcularNegro(Celda[][] t) {
+		
+		coordenadasPosibles.clear();
+
 		//up
 			if(t[coordenadas.up().getYInt()][coordenadas.up().getXInt()].isEmpty() && coordenadas.up().existe()) {
 				coordenadasPosibles.add(coordenadas.up());
@@ -51,15 +55,52 @@ public void calcularCoordenadas(Celda[][] t) {
 				coordenadasPosibles.add(coordenadas.up().right());
 			}
 			//up-left
-			if(!t[coordenadas.up().left().getYInt()][coordenadas.up().left().getXInt()].comprobarColor(this.color) && coordenadas.up().down().existe() && 
-					!t[coordenadas.up().down().getYInt()][coordenadas.up().down().getXInt()].isEmpty()) {
+			if(!t[coordenadas.up().left().getYInt()][coordenadas.up().left().getXInt()].comprobarColor(this.color) && coordenadas.up().left().existe() && 
+					!t[coordenadas.up().left().getYInt()][coordenadas.up().left().getXInt()].isEmpty()) {
 				coordenadasPosibles.add(coordenadas.up().left());
 			}
-		//}catch (java.lang.NullPointerException | java.lang.ArrayIndexOutOfBoundsException exception) {}
+			
+			
+			
+			
+		
 
 		
 		
 				
+		
+	}
+
+
+	
+public void calcularBlanco(Celda[][] t) {
+		
+	Coordenadas coordenada;
+		
+		coordenada = coordenadas.down();
+		if(t[coordenada.getYInt()][coordenada.getXInt()].isEmpty() && coordenada.existe()) {
+			this.coordenadasPosibles.add(coordenada);
+		}
+		
+		//up-up
+		coordenada = coordenadas.down().down();
+		if(t[coordenada.getYInt()][coordenada.getXInt()].isEmpty() && t[coordenada.getYInt()][coordenada.getXInt()].isEmpty() && this.firstmove) {
+			this.coordenadasPosibles.add(coordenada);
+		}
+
+		//up-right
+		coordenada = coordenadas.down().right();
+		if(!t[coordenada.getYInt()][coordenada.getXInt()].comprobarColor(this.color) && coordenada.existe() &&
+				!t[coordenada.getYInt()][coordenada.getXInt()].isEmpty()) {
+			this.coordenadasPosibles.add(coordenada);
+		}
+		//up-left
+		coordenada = coordenadas.down().left();
+		if(!t[coordenada.getYInt()][coordenada.getXInt()].comprobarColor(this.color) && coordenada.existe() && 
+				!t[coordenada.getYInt()][coordenada.getXInt()].isEmpty()) {
+			this.coordenadasPosibles.add(coordenada);
+		}
+		
 		
 	}
 	
@@ -76,4 +117,21 @@ public void calcularCoordenadas(Celda[][] t) {
 			
 		
 	}
+	public void setCoordenadasPosibles(ArrayList<Coordenadas> coordenadasPosibles) {
+		this.coordenadasPosibles = coordenadasPosibles;
+	}
+	public void printCoordenadasPosibles() {
+		
+		System.out.println(this.coordenadasPosibles);
+		
+	}
+
+
+	public void setCoor(Coordenadas coor) {
+
+		this.coordenadas=coor;
+		
+	}
+
+
 }

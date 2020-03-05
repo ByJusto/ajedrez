@@ -6,13 +6,10 @@ import fichas.Ficha.Color;
 
 public class King extends Ficha {
 
-	private Color color;
-	private Coordenadas coordenadas;
-	private ArrayList<Coordenadas> coordenadasPosibles = new ArrayList<Coordenadas>();
 
 
 	public King(Color color,Coordenadas coordenadas) {
-		super();
+		super(coordenadas, color);
 		this.color = color;
 		this.coordenadas=coordenadas;
 
@@ -28,6 +25,15 @@ public class King extends Ficha {
 			return Ficha.Shape.black_king.toString();
 
 	}
+	public void setCoordenadasPosibles(ArrayList<Coordenadas> coordenadasPosibles) {
+		this.coordenadasPosibles = coordenadasPosibles;
+	}
+	public void printCoordenadasPosibles() {
+		
+		System.out.println(this.coordenadasPosibles);
+		
+	}
+
 public void calcularCoordenadas(Celda[][] t) {
 		
 		//coordenadasPosibles.clear();
@@ -37,7 +43,7 @@ public void calcularCoordenadas(Celda[][] t) {
 		//up
 		if(!t[coordenadas.up().getYInt()][coordenadas.up().getXInt()].comprobarColor(this.color) && coordenadas.up().existe()) {
 			coordenadasPosibles.add(coordenadas.up());
-		}
+		} 
 		//down
 		if(!t[coordenadas.down().getYInt()][coordenadas.down().getXInt()].comprobarColor(this.color) && coordenadas.down().existe()) {
 			coordenadasPosibles.add(coordenadas.down());
@@ -72,4 +78,12 @@ public void calcularCoordenadas(Celda[][] t) {
 				
 		
 	}
+
+
+@Override
+public void setCoor(Coordenadas coor) {
+
+	this.coordenadas=coor;
+	
+}
 }

@@ -5,13 +5,10 @@ import java.util.ArrayList;
 import fichas.Ficha.Color;
 
 public class Bishop extends Ficha {
-	protected ArrayList<Coordenadas> coordenadasPosibles = new ArrayList<Coordenadas>();
-	private Color color;
-	private Coordenadas coordenadas;
+
 	
 	public Bishop(Color color,Coordenadas coordenadas) {
-		super();
-
+		super(coordenadas, color);
 		this.color=color;
 		this.coordenadas=coordenadas;
 
@@ -39,7 +36,7 @@ public void calcularCoordenadas(Celda[][] t) {
 		XY = this.coordenadas;
 	//	try {
 		//up-right
-		while(!t[coordenadas.up().right().getYInt()][coordenadas.up().right().getXInt()].comprobarColor(this.color) && coordenadas.up().right().existe()) {
+		while(!t[coordenadas.up().right().getYInt()][coordenadas.up().right().getXInt()].comprobarColor(this.color) && coordenadas.up().right().existe() && bucle) {
 			coordenadasPosibles.add(XY.up().right());
 			if(!t[coordenadas.up().right().getYInt()][coordenadas.up().right().getXInt()].comprobarColor(this.color)) {
 				bucle=false;
@@ -52,7 +49,7 @@ public void calcularCoordenadas(Celda[][] t) {
 		XY = this.coordenadas;
 		
 			//up-left
-			while(!t[coordenadas.up().left().getYInt()][coordenadas.up().left().getXInt()].comprobarColor(this.color) && coordenadas.up().down().existe()) {
+			while(!t[coordenadas.up().left().getYInt()][coordenadas.up().left().getXInt()].comprobarColor(this.color) && coordenadas.up().down().existe() && bucle) {
 				coordenadasPosibles.add(XY.up().left());
 				if(!t[coordenadas.up().left().getYInt()][coordenadas.up().left().getXInt()].comprobarColor(this.color)) {
 					bucle=false;
@@ -67,7 +64,7 @@ public void calcularCoordenadas(Celda[][] t) {
 		
 			
 			//down-right
-			while(!t[coordenadas.down().right().getYInt()][coordenadas.down().right().getXInt()].comprobarColor(this.color) && coordenadas.down().right().existe()) {
+			while(!t[coordenadas.down().right().getYInt()][coordenadas.down().right().getXInt()].comprobarColor(this.color) && coordenadas.down().right().existe() && bucle) {
 				coordenadasPosibles.add(XY.down().right());
 				if(!t[XY.right().getYInt()][XY.right().getXInt()].comprobarColor(this.color)) {
 					bucle=false;
@@ -80,7 +77,7 @@ public void calcularCoordenadas(Celda[][] t) {
 		
 			
 			//down-left
-			while(!t[coordenadas.down().left().getYInt()][coordenadas.down().left().getXInt()].comprobarColor(this.color) && coordenadas.down().left().existe()) {
+			while(!t[coordenadas.down().left().getYInt()][coordenadas.down().left().getXInt()].comprobarColor(this.color) && coordenadas.down().left().existe() && bucle) {
 				coordenadasPosibles.add(XY.down().left());
 				if(!t[XY.down().getYInt()][XY.down().getXInt()].comprobarColor(this.color)) {
 					bucle=false;
@@ -93,7 +90,20 @@ public void calcularCoordenadas(Celda[][] t) {
 		
 	}
 	
+public void setCoordenadasPosibles(ArrayList<Coordenadas> coordenadasPosibles) {
+	this.coordenadasPosibles = coordenadasPosibles;
+}
+
+public void printCoordenadasPosibles() {
 	
+	System.out.println(this.coordenadasPosibles);
+	
+}
+public void setCoor(Coordenadas coor) {
+
+	this.coordenadas=coor;
+	
+}
 
 
 }

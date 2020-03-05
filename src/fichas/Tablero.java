@@ -98,7 +98,7 @@ public class Tablero {
 		}
 		
 		tablero[7][0] = new Celda(new Rook(Color.black,new Coordenadas('A',8)));
-		tablero[3][1] = new Celda(new Knight(Color.black,new Coordenadas('B',4)));	
+		tablero[7][1] = new Celda(new Knight(Color.black,new Coordenadas('B',8)));	
 		tablero[7][2] = new Celda(new Bishop(Color.black,new Coordenadas('C',8)));		
 		tablero[7][3] = new Celda(new Queen(Color.black,new Coordenadas('D',8)));		
 		tablero[7][4] = new Celda(new King(Color.black,new Coordenadas('E',8)));		
@@ -126,7 +126,6 @@ public class Tablero {
 		int yd = y2 - 1;
 		int yo = y1 -1;
 		Coordenadas destino= new Coordenadas(x2, yd);
-		printCoorPos(3,1);
 
 		
 		if(tablero[yo][xo].isEmpty()) {
@@ -140,7 +139,7 @@ public class Tablero {
 			tablero[yo][xo].deleteFicha();
 			tablero[yd][xd].getFicha().setCoor(new Coordenadas((char)(xd +'A'),yd));
 			System.out.println("Ficha movida a : " + tablero[yd][xd].getFicha().getCoor());
-			
+			calculoInicial();
 			return true;
 
 			
@@ -149,6 +148,7 @@ public class Tablero {
 
 		return false;
 			
+
 		
 		
 		
@@ -162,7 +162,7 @@ public class Tablero {
 		         
 		         
 		return	"\t"+" "+"\t"+"╔═══╤═══╤═══╤═══╤═══╤═══╤═══╤═══╗"+"\t"+" "+"\n"+
-				"\t"+"1"+"\t"+"║   │   │   │   │   │   │   │   ║"+"\t"+"1"+"\n"+
+				"\t"+"1"+"\t"+"║ 0.1 1.2 │ 1.3  │   │   │   │   │   │   ║"+"\t"+"1"+"\n"+
 				"\t"+" "+"\t"+"╟───┼───┼───┼───┼───┼───┼───┼───╢"+"\t"+" "+"\n"+
 				"\t"+"2"+"\t"+"║   │   │   │   │   │   │   │   ║"+"\t"+"2"+"\n"+
 				"\t"+" "+"\t"+"╟───┼───┼───┼───┼───┼───┼───┼───╢"+"\t"+" "+"\n"+
@@ -183,20 +183,28 @@ public class Tablero {
 		
 	}
 	
-	public void printCoorPos(int a,int b) {
+	public void printCoorPos() {
 		
-		System.out.println(tablero[a][b].getFicha().getCoordenadasPosibles().toString());
+		for(int i = 0;i<8;i++) {
+			for(int a =0;a<8;a++) {
+				if(!tablero[i][a].isEmpty()) {
+					System.out.println(tablero[i][a].getFicha().toString());
+					tablero[i][a].getFicha().printCoordenadasPosibles();
+				}
+			}
+			
+			
+		}
+		
 		
 		
 	}
 	
 	public void calculoInicial() {
 		
-		for(int i = 0;i<tablero.length;i++) {
-			for(int a =0;a<tablero[0].length;a++) {
-				System.out.println("A");
+		for(int i = 0;i<8;i++) {
+			for(int a =0;a<8;a++) {
 				if(!tablero[i][a].isEmpty())
-					System.out.println("B");
 					tablero[i][a].getFicha().calcularCoordenadas(this.tablero);
 			}
 			

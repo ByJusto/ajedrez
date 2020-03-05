@@ -53,7 +53,7 @@ public class Coordenadas {
 	public boolean existe() {
 		
 		
-		if(this.getXInt()>8 || this.getYInt() >8 || this.getXInt()<0 || this.getYInt() <0)
+		if(this.getXInt()>=8 || this.getYInt() >=8 || this.getXInt()<0 || this.getYInt() <0)
 			return false;
 		else
 			return true;
@@ -77,8 +77,6 @@ public class Coordenadas {
 			return true;
 		else
 			return false;
-		
-	
 		
 	}
 	

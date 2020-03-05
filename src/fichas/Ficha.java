@@ -14,7 +14,7 @@ public abstract class Ficha  {
 		white_rook("\2656",Color.white),white_knight("\2658",Color.white),white_pawn("\2659",Color.white)
 		,black_queen("\u265B",Color.black),black_king("\u265A",Color.black),black_bishop("\265D",Color.black),
 		black_rook("\u265C",Color.black),black_knight("\265E",Color.black),black_pawn("\u265F",Color.black);*/
-		private Color color;
+		public Color color;
 		private String forma;
 	
 		Shape(String forma, Color color) {
@@ -38,52 +38,53 @@ public abstract class Ficha  {
 	public static enum Color{
 		white,black;
 	}
-	private Shape shape;
-	private Coordenadas coor;
-	private ArrayList<Coordenadas> coordenadasPosibles = new ArrayList<Coordenadas>();
+	protected Shape shape;
+	protected Coordenadas coordenadas;
+	protected Color color;
+	protected ArrayList<Coordenadas> coordenadasPosibles = new ArrayList<Coordenadas>();
 
 
 	public Color getColor() {
-		return this.shape.color;
+		return this.color;
 	}
 	
 	public Coordenadas getCoor() {
-		return coor;
+		return coordenadas;
 	}
 
 
 	public Coordenadas getCoordenadas() {
-		return coor;
+		return coordenadas;
 	}
 	
-	public void setCoor(Coordenadas coor) {
-		this.coor = coor;
-	}
+	public abstract void setCoor(Coordenadas coor) ;
 
 	
 
 	public ArrayList<Coordenadas> getCoordenadasPosibles() {
 		return coordenadasPosibles;
 	}
+	
+	public abstract void printCoordenadasPosibles() ;
 
-	public void setCoordenadasPosibles(ArrayList<Coordenadas> coordenadasPosibles) {
-		this.coordenadasPosibles = coordenadasPosibles;
+	public abstract void setCoordenadasPosibles(ArrayList<Coordenadas> coordenadasPosibles);
+
+	
+	
+	
+	
+	public Ficha( Coordenadas coor, Color color) {
+		this.coordenadas = coor;
+		this.color = color;
 	}
 
-	public Ficha(){
-		
-		
-	}
-	
-	
-	
 	public boolean equals(Object object)
     {
         boolean sameSame = false;
 
         if (object != null && object instanceof Coordenadas)
         {
-            sameSame = this.coor.getCoorX() == ((Coordenadas) object).getCoorX() && this.coor.getCoorY() == ((Coordenadas) object).getCoorY() ;
+            sameSame = this.coordenadas.getCoorX() == ((Coordenadas) object).getCoorX() && this.coordenadas.getCoorY() == ((Coordenadas) object).getCoorY() ;
         }
 
         return sameSame;
@@ -111,7 +112,7 @@ public abstract class Ficha  {
 
 	}
 	
-	public void calcularCoordenadas(Celda[][] t) {}
+	public abstract void calcularCoordenadas(Celda[][] t);
 
 
 

@@ -5,15 +5,20 @@ import java.util.Scanner;
 public class Test {
 
 	public static void main(String[] args) {
-		
+		String ans ="Y";
 		Scanner sc = new Scanner(System.in);
 
 		Tablero a = new Tablero();
 		a.initialPos();
+		
 		System.out.println(a.printTablero());
+		
 		
 		Coordenadas c= new Coordenadas('E',6);
 		
+		while (ans !="n") {
+			a.printCoorPos();
+
 		System.out.println("ORIGEN  Introduce coordenada X");
 		
 		char xo =  sc.nextLine().charAt(0);
@@ -35,7 +40,13 @@ public class Test {
         
         
 		System.out.println(a.printTablero());
-
+		
+		System.out.println("continuar?");
+		
+		sc = new Scanner(System.in);
+		
+		 ans =  sc.nextLine();
+		}
 
         
         
