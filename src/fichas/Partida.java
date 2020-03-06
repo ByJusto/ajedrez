@@ -7,15 +7,18 @@ import fichas.Ficha.Color;
 public class Partida {
 
 	public static void main(String[] args) {
+		
+		Coordenadas co; //Variable de coordenada de origen
 
-		String ans = "Y";
-		Coordenadas co;
-		Coordenadas cd;
-		Scanner sc = new Scanner(System.in);
-		Tablero a = new Tablero();
-		boolean checkmate=false;
-		String turno="";
-		a.initialPos();
+		Coordenadas cd; //Variable de coordenada de destino
+				
+		Tablero a = new Tablero(); //Declaracion del tablero
+		
+		boolean checkmate=false; //JaqueMate para saber cuando se acaba la partida
+		
+		String turno=""; // En esta variable almacenamos el turno de jugador al que le toca jugar
+		
+		a.initialPos(); // Generamos las fichas en el tablero
 
 		System.out.println(a.printTablero());
 
@@ -34,11 +37,11 @@ public class Partida {
 
 		turno = "Jugador1";
 		while(!checkmate) {
-			
+			//bucle de partida
 			a.calculoPos();
 			System.out.println("---------------------------Turno de " + turno+ "---------------------------");
 			switch (turno) {
-			
+			//segun a quien le toque juegan las blancas o las negras
 			case "Jugador1":
 				
 					//Creamos coordenada origen con restriccion del color

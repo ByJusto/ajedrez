@@ -16,12 +16,14 @@ public class Coordenadas {
 
 	public int getXInt() {
 
+		//coordenada procesada para que se pueda usar directamente en un array[*][*]
+		
 		return this.X - 'A';
 
 	}
 
 	public int getYInt() {
-
+		//coordenada procesada para que se pueda usar directamente en un array[*][*]
 		return Y - 1;
 
 	}
@@ -50,6 +52,7 @@ public class Coordenadas {
 	
 	public boolean existe() {
 		
+		//comprobamos si la coordenada introducida se encuentra dentro del tablero
 		
 			
 			if(this.getXInt()>=8 || this.getYInt() >=8 || this.getXInt()<0 || this.getYInt() <0)
@@ -68,7 +71,7 @@ public class Coordenadas {
 
 	
 	public boolean equals(Object o) {
-		
+		//redefinimos el equals
 		Coordenadas a = (Coordenadas) o;
 		
 		if(this.X == a.X && this.Y == a.Y)

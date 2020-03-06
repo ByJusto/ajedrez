@@ -6,10 +6,8 @@ import java.util.Iterator;
 public abstract class Ficha  {
 
 	public static enum Shape{
-		/*white_queen("Q",Color.white),white_king("K",Color.white),white_bishop("B",Color.white),
-		white_rook("T",Color.white),white_knight("C",Color.white),white_pawn("P",Color.white)
-		,black_queen("Q",Color.black),black_king("K",Color.black),black_bishop("B",Color.black),
-		black_rook("T",Color.black),black_knight("C",Color.black),black_pawn("P",Color.black);*/
+		//enum de las formas posibles que pueden tomar las fichas
+		
 		white_queen("\u2655",Color.white),white_king("\2654",Color.white),white_bishop("\2657",Color.white),
 		white_rook("\2656",Color.white),white_knight("\2658",Color.white),white_pawn("\2659",Color.white)
 		,black_queen("\u265B",Color.black),black_king("\u265A",Color.black),black_bishop("\265D",Color.black),
@@ -92,6 +90,7 @@ public abstract class Ficha  {
 		this.color = color;
 	}
 
+	//Redefinimos el equals para que compare las coordenadas segun las dos variables de estas
 	public boolean equals(Object object){
         boolean sameSame = false;
 

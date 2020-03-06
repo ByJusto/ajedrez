@@ -84,6 +84,7 @@ public class Tablero {
 	
 	public void initialPos() {
 		
+		//inicializamos las celdas del tablero para que no nos de pointernullexception
 		for(int i = 0; i<8;i++) {
 			for(int a = 0; a<8;a++) {
 				
@@ -91,7 +92,7 @@ public class Tablero {
 				
 			}
 		}
-		
+		//colocamos las fichas del tablero
 		tablero[0][0] = new Celda(new Rook(Color.white,new Coordenadas('A',1),this));
 		tablero[0][1] = new Celda(new Knight(Color.white,new Coordenadas('B',1),this));		
 		tablero[0][2] = new Celda(new Bishop(Color.white,new Coordenadas('C',1),this));		
@@ -121,7 +122,7 @@ public class Tablero {
 			tablero[6][p] = new Celda(new Pawn(Color.black,new Coordenadas((char)a,7),this));
 
 		}
-		 
+		 //calculamos las posiciones disponibles
 				calculoPos();
 
 		
@@ -130,24 +131,27 @@ public class Tablero {
 	}
 	public boolean moveFicha(Coordenadas o, Coordenadas d) {
 		
-
+		//Movimiento de ficha, introduciendo coordenda origen y coordenada destino
 		
 		if(celdaCoor(o) .isEmpty()) {
-			
+			//comprobamos que la coordenada origen no esta vacia
 			System.out.println("No hay ficha");
 			return false;
 			
 		}else if(celdaCoor(o).getFicha().getCoordenadasPosibles().contains(d)) {
+			//comprobamos si la posicion destino esta entre el "pool" de posiciones validas de la ficha correspondiente
 			if(win(d))
 				System.out.println("Has ganado");
 			celdaCoor(d).colocarFicha(celdaCoor(o).getFicha(),d);
+			// se coloca la ficha en la celda destino
 			celdaCoor(o).deleteFicha();
+			//se elimina la ficha de la celda origen
 			System.out.println("Ficha movida a : " + celdaCoor(d).getFicha().getCoor().toString());
 			if(comprobarTrans(d))
 				celdaCoor(d).colocarFicha(new Queen(celdaCoor(d).getFicha().getColor(),d,this) ,d);
 			
 			calculoPos();
-			
+			//devolvemos verdadero si se ha completado con exito.
 			return true;
 
 			
@@ -317,7 +321,7 @@ public class Tablero {
 	}
 	
 	public boolean win(Coordenadas c) {
-		
+		//si la celda destino es la misma que la del rey enemigo la partida se acaba;
 		if(!celdaCoor(c).isEmpty())
 			if(celdaCoor(c).getFicha().toString()== Ficha.Shape.white_king.toString()||celdaCoor(c).getFicha().toString()== Ficha.Shape.black_king.toString())
 				return true;
@@ -328,7 +332,7 @@ public class Tablero {
 	}
 	
 	public boolean comprobarTrans(Coordenadas c) {
-		
+		//comprobamos si la ficha de la coordenada es un peon y si esta en el extremo contrario del tablero
 		if(c.getYInt()==0 || c.getYInt()==7)
 		    if(celdaCoor(c).getFicha().toString()== Ficha.Shape.white_pawn.toString()|| celdaCoor(c).getFicha().toString()==Ficha.Shape.black_pawn.toString())
 		    	return true;

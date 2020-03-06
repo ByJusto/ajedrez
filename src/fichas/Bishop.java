@@ -15,7 +15,9 @@ public class Bishop extends Ficha {
 	}
 
 	public String toString() {
-
+		
+		//Segun el color devuelve una ficha o otra
+		
 		if (this.color.equals(Color.white)) {
 
 			return Ficha.Shape.white_bishop.toString();
@@ -25,7 +27,7 @@ public class Bishop extends Ficha {
 	}
 
 	public void calcularCoordenadas() {
-
+		//Calcular las posiciones posibles desde la posicion actual
 		coordenadasPosibles.clear();
 
 

@@ -13,7 +13,7 @@ public class Celda {
 	}
 	
 	public void colocarFicha(Ficha ficha,Coordenadas coordenadas) {
-		
+		//colocamos la fficha y a demas a esa ficha le indicamos su nueva coordenada
 		this.ficha=ficha;
 		this.ficha.setCoor(coordenadas);
 	}
@@ -30,6 +30,7 @@ public class Celda {
 	}
 	
 	public boolean isEmpty() {
+		//comprobacion si contiene ficha o esta vacia
 		if (this.ficha == null)
 		return true;
 		else
@@ -47,7 +48,7 @@ public class Celda {
 	}
 
 	public boolean comprobarColor(Color color) {
-		
+		//Comprobamos si el color de la ficha contenida es el mismo que el introducido
 		if(this.isEmpty())
 			return false;
 		if(this.ficha.getColor() == color)
