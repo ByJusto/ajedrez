@@ -10,11 +10,13 @@ public class Pawn extends Ficha{
 	private boolean firstmove = true;
 
 	
-	public Pawn(Color color,Coordenadas coordenadas) {
+	public Pawn(Color color,Coordenadas coordenadas,Tablero t) {
 		super(coordenadas, color);
 
 		this.color=color;
 		this.coordenadas=coordenadas;
+		this.tablero=t;
+
 
 		
 	}
@@ -27,38 +29,49 @@ public class Pawn extends Ficha{
 		return firstmove;
 	}
 	
-public void calcularCoordenadas(Celda[][] t) {
+public void calcularCoordenadas() {
 		
-		if(this.color==Color.white)
-			calcularBlanco(t);
+		if(this.color==Color.black)
+			calcularNegro();	
+
 		else
-			calcularNegro(t);	
-		
+		calcularBlanco();
+
 	}
-public void calcularNegro(Celda[][] t) {
+public void calcularNegro() {
 		
 		coordenadasPosibles.clear();
 
+		Coordenadas coordenada;
+		
 		//up
-			if(t[coordenadas.up().getYInt()][coordenadas.up().getXInt()].isEmpty() && coordenadas.up().existe()) {
-				coordenadasPosibles.add(coordenadas.up());
+			coordenada = getCoordenadas().up();
+			if(tablero.existeEmpty(coordenada)) {
+				coordenadasPosibles.add(coordenada);
+				coordenada=getCoordenadas().up().up();
+				if(tablero.celdaCoor(coordenada).isEmpty() && this.coordenadas.getYInt() ==6) {
+					
+					this.coordenadasPosibles.add(coordenada);
+					
+				}
+				
 			}
 			
-			//up-up
-			if(t[coordenadas.up().up().getYInt()][coordenadas.up().up().getXInt()].isEmpty() && t[coordenadas.up().getYInt()][coordenadas.up().getXInt()].isEmpty() && this.firstmove) {
-				coordenadasPosibles.add(coordenadas.up().up());
-			}
-	
 			//up-right
-			if(!t[coordenadas.up().right().getYInt()][coordenadas.up().right().getXInt()].comprobarColor(this.color) && coordenadas.up().right().existe() &&
-					!t[coordenadas.up().right().getYInt()][coordenadas.up().right().getXInt()].isEmpty()) {
-				coordenadasPosibles.add(coordenadas.up().right());
-			}
+			
+			coordenada = getCoordenadas().up().right();
+			if(coordenada.existe())
+				if(!tablero.celdaCoor(coordenada).comprobarColor(this.color) && 
+						!tablero.celdaCoor(coordenada).isEmpty()) {
+					this.coordenadasPosibles.add(coordenada);
+				}
 			//up-left
-			if(!t[coordenadas.up().left().getYInt()][coordenadas.up().left().getXInt()].comprobarColor(this.color) && coordenadas.up().left().existe() && 
-					!t[coordenadas.up().left().getYInt()][coordenadas.up().left().getXInt()].isEmpty()) {
-				coordenadasPosibles.add(coordenadas.up().left());
-			}
+			coordenada = getCoordenadas().up().left();
+			if(coordenada.existe())
+				if(!tablero.celdaCoor(coordenada).comprobarColor(this.color) && 
+						!tablero.celdaCoor(coordenada).isEmpty()) {
+					this.coordenadasPosibles.add(coordenada);
+				}
 			
 			
 			
@@ -73,33 +86,39 @@ public void calcularNegro(Celda[][] t) {
 
 
 	
-public void calcularBlanco(Celda[][] t) {
+public void calcularBlanco() {
 		
-	Coordenadas coordenada;
-		
-		coordenada = coordenadas.down();
-		if(t[coordenada.getYInt()][coordenada.getXInt()].isEmpty() && coordenada.existe()) {
-			this.coordenadasPosibles.add(coordenada);
-		}
-		
-		//up-up
-		coordenada = coordenadas.down().down();
-		if(t[coordenada.getYInt()][coordenada.getXInt()].isEmpty() && t[coordenada.getYInt()][coordenada.getXInt()].isEmpty() && this.firstmove) {
-			this.coordenadasPosibles.add(coordenada);
-		}
+	coordenadasPosibles.clear();
 
-		//up-right
-		coordenada = coordenadas.down().right();
-		if(!t[coordenada.getYInt()][coordenada.getXInt()].comprobarColor(this.color) && coordenada.existe() &&
-				!t[coordenada.getYInt()][coordenada.getXInt()].isEmpty()) {
-			this.coordenadasPosibles.add(coordenada);
+	Coordenadas coordenada;
+		//down
+		coordenada = getCoordenadas().down();
+		if(tablero.existeEmpty(coordenada)) {
+			coordenadasPosibles.add(coordenada);
+			//down-down
+			coordenada=getCoordenadas().down().down();
+			if(tablero.celdaCoor(coordenada).isEmpty() && this.coordenadas.getYInt() ==1) {
+				this.coordenadasPosibles.add(coordenada);
+				
+			}
 		}
-		//up-left
-		coordenada = coordenadas.down().left();
-		if(!t[coordenada.getYInt()][coordenada.getXInt()].comprobarColor(this.color) && coordenada.existe() && 
-				!t[coordenada.getYInt()][coordenada.getXInt()].isEmpty()) {
-			this.coordenadasPosibles.add(coordenada);
-		}
+		
+		
+
+		//down-right
+		coordenada = getCoordenadas().down().right();
+		if(coordenada.existe())
+			if(!tablero.celdaCoor(coordenada).comprobarColor(this.color) &&
+					!tablero.celdaCoor(coordenada).isEmpty()) {
+				this.coordenadasPosibles.add(coordenada);
+			}
+		//down-left
+		coordenada = getCoordenadas().down().left();
+		if(coordenada.existe())
+			if(!tablero.celdaCoor(coordenada).comprobarColor(this.color) && 
+					!tablero.celdaCoor(coordenada).isEmpty()) {
+				this.coordenadasPosibles.add(coordenada);
+			}
 		
 		
 	}
@@ -127,11 +146,10 @@ public void calcularBlanco(Celda[][] t) {
 	}
 
 
-	public void setCoor(Coordenadas coor) {
 
-		this.coordenadas=coor;
-		
-	}
+
+
+
 
 
 }

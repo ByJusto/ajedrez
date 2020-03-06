@@ -6,11 +6,13 @@ public class Rook extends Ficha{
 
 	
 	
-	public Rook(Color color,Coordenadas coordenadas) {
+	public Rook(Color color,Coordenadas coordenadas,Tablero t) {
 		super(coordenadas, color);
 
 		this.color=color;	
 		this.coordenadas=coordenadas;
+		this.tablero=t;
+
 
 		
 	}
@@ -26,77 +28,76 @@ public class Rook extends Ficha{
 		
 	}
 	
-public void calcularCoordenadas(Celda[][] t) {
+public void calcularCoordenadas() {
 		
 		coordenadasPosibles.clear();
 		
-		//t[coordenadas.up().up().right().getYInt()][coordenadas.up().up().right().getXInt()].getFicha().getColor();		
-		Coordenadas XY;;
 		
-		boolean bucle = true;
-		XY = this.coordenadas;
-		
+		Coordenadas c;
+
 		//up
-	//	try {
-		while(!t[XY.up().getYInt()][XY.up().getXInt()].comprobarColor(this.color) && XY.up().existe() && bucle) {
-			if(!t[XY.up().getYInt()][XY.up().getXInt()].comprobarColor(this.color)) {
-				bucle=false;
-			}
-			coordenadasPosibles.add(XY.up());
-			System.out.println("Coordenada Añadida ROOK");
+		c = getCoordenadas().up();
+		while(tablero.existeEmpty(c)) {
+			
+			coordenadasPosibles.add(c);
 
 			
-			XY=XY.up();
+			c=c.up();
 
 		}
+		if(c.existe())
+			if(!tablero.celdaCoor(c).comprobarColor(this.color)) {
+					coordenadasPosibles.add(c);
+				}
 		
 		
-		
-		XY = this.coordenadas;
-		
+
+		c = getCoordenadas().left();
 			//left
-			while(!t[XY.left().getYInt()][XY.left().getXInt()].comprobarColor(this.color) && XY.left().existe() && bucle) {
-				coordenadasPosibles.add(XY.left());
-				System.out.println("Coordenada Añadida ROOK");
-				if(!t[XY.left().getYInt()][XY.left().getXInt()].comprobarColor(this.color)) {
-					bucle=false;
+			while(tablero.existeEmpty(c)) {
+				coordenadasPosibles.add(c);
+				
+				c=c.left();			
 				}
-				XY=XY.left();			
-				}
-			
+			if(c.existe())
+				if(!tablero.celdaCoor(c).comprobarColor(this.color)) {
+					coordenadasPosibles.add(c);
+					}
 		
 		
 		
-		XY = this.coordenadas;
+			c = getCoordenadas().right();
 		
 			
 			//right
-			while(!t[XY.right().getYInt()][XY.right().getXInt()].comprobarColor(this.color) && XY.right().existe() && bucle) {
-				coordenadasPosibles.add(XY.right());
-				System.out.println("Coordenada Añadida ROOK");
+			
+			while(tablero.existeEmpty(c)) {
+				coordenadasPosibles.add(c);
 
-				if(!t[XY.right().getYInt()][XY.right().getXInt()].comprobarColor(this.color)) {
-					bucle=false;
-				}
-				XY=XY.right();
+			
+				c=c.right();
 			}
+			
+			if(c.existe())
+				if(!tablero.celdaCoor(c).comprobarColor(this.color)) {
+					coordenadasPosibles.add(c);
+					}
 		
-		
-		XY = this.coordenadas;
-		
+
+			c= getCoordenadas().down();
 			
 			//down
-			while(!t[XY.down().getYInt()][XY.down().getXInt()].comprobarColor(this.color) && XY.down().existe() && bucle) {
-				coordenadasPosibles.add(XY.down());
-				System.out.println("Coordenada Añadida ROOK");
+			while(tablero.existeEmpty(c)) {
+				coordenadasPosibles.add(c);
 
-				if(!t[XY.down().getYInt()][XY.down().getXInt()].comprobarColor(this.color)) {
-					bucle=false;
-				}
-				XY=XY.down();
+				
+				c=c.down();
 				
 			}
-		//}catch (java.lang.NullPointerException | java.lang.ArrayIndexOutOfBoundsException exception) {}
+			if(c.existe())
+				if(!tablero.celdaCoor(c).comprobarColor(this.color)) {
+					coordenadasPosibles.add(c);
+					}
 
 		
 	}

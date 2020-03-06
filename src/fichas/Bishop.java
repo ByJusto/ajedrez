@@ -6,105 +6,99 @@ import fichas.Ficha.Color;
 
 public class Bishop extends Ficha {
 
-	
-	public Bishop(Color color,Coordenadas coordenadas) {
+	public Bishop(Color color, Coordenadas coordenadas, Tablero t) {
 		super(coordenadas, color);
-		this.color=color;
-		this.coordenadas=coordenadas;
+		this.color = color;
+		this.coordenadas = coordenadas;
+		this.tablero = t;
 
 	}
-	
+
 	public String toString() {
-		
-		if(this.color.equals(Color.white)) {
-			
+
+		if (this.color.equals(Color.white)) {
+
 			return Ficha.Shape.white_bishop.toString();
-		}else
+		} else
 			return Ficha.Shape.black_bishop.toString();
-			
-		
+
 	}
-public void calcularCoordenadas(Celda[][] t) {
-		
+
+	public void calcularCoordenadas() {
+
 		coordenadasPosibles.clear();
-		
-		//t[coordenadas.up().up().right().getYInt()][coordenadas.up().up().right().getXInt()].getFicha().getColor();		
-		Coordenadas XY;;
-		
-		boolean bucle = true;
-		
-		XY = this.coordenadas;
-	//	try {
-		//up-right
-		while(!t[coordenadas.up().right().getYInt()][coordenadas.up().right().getXInt()].comprobarColor(this.color) && coordenadas.up().right().existe() && bucle) {
-			coordenadasPosibles.add(XY.up().right());
-			if(!t[coordenadas.up().right().getYInt()][coordenadas.up().right().getXInt()].comprobarColor(this.color)) {
-				bucle=false;
-			}
-			XY=XY.up().right();
+
+
+
+		Coordenadas c;
+
+		c = getCoordenadas().up().right();
+
+		// up-right
+		while (tablero.existeEmpty(c)) {
+			coordenadasPosibles.add(c);
+
+			c = c.up().right();
 
 		}
-		
-		
-		XY = this.coordenadas;
-		
-			//up-left
-			while(!t[coordenadas.up().left().getYInt()][coordenadas.up().left().getXInt()].comprobarColor(this.color) && coordenadas.up().down().existe() && bucle) {
-				coordenadasPosibles.add(XY.up().left());
-				if(!t[coordenadas.up().left().getYInt()][coordenadas.up().left().getXInt()].comprobarColor(this.color)) {
-					bucle=false;
-				}
-				XY=XY.up().left();			
-				}
-			
-		
-		
-		
-		XY = this.coordenadas;
-		
-			
-			//down-right
-			while(!t[coordenadas.down().right().getYInt()][coordenadas.down().right().getXInt()].comprobarColor(this.color) && coordenadas.down().right().existe() && bucle) {
-				coordenadasPosibles.add(XY.down().right());
-				if(!t[XY.right().getYInt()][XY.right().getXInt()].comprobarColor(this.color)) {
-					bucle=false;
-				}
-				XY=XY.down().right();
-			}
-		
-		
-		XY = this.coordenadas;
-		
-			
-			//down-left
-			while(!t[coordenadas.down().left().getYInt()][coordenadas.down().left().getXInt()].comprobarColor(this.color) && coordenadas.down().left().existe() && bucle) {
-				coordenadasPosibles.add(XY.down().left());
-				if(!t[XY.down().getYInt()][XY.down().getXInt()].comprobarColor(this.color)) {
-					bucle=false;
-				}
-				XY=XY.down().left();
-				
-			}
-	//	}catch (java.lang.NullPointerException | java.lang.ArrayIndexOutOfBoundsException exception) {}
+		if (tablero.existeColor(c,this.color)) {
+			coordenadasPosibles.add(c);
+		}
 
-		
+		c = getCoordenadas().up().left();
+		// up-left
+		while (tablero.existeEmpty(c)) {
+			coordenadasPosibles.add(c);
+
+			c = c.up().left();
+
+		}
+		if (tablero.existeColor(c,this.color)) {
+			coordenadasPosibles.add(c);
+		}
+
+		c = getCoordenadas().down().right();
+
+		// down-right
+		while (tablero.existeEmpty(c)) {
+			coordenadasPosibles.add(c);
+
+			c = c.up().left();
+
+		}
+		if (tablero.existeColor(c,this.color)) {
+			coordenadasPosibles.add(c);
+		}
+
+		c = getCoordenadas().down().left();
+
+		// down-left
+		while (tablero.existeEmpty(c)) {
+			coordenadasPosibles.add(c);
+
+			c = c.up().left();
+
+		}
+		if (tablero.existeColor(c,this.color)) {
+			coordenadasPosibles.add(c);
+		}
+
 	}
-	
-public void setCoordenadasPosibles(ArrayList<Coordenadas> coordenadasPosibles) {
-	this.coordenadasPosibles = coordenadasPosibles;
+
+	public void setCoordenadasPosibles(ArrayList<Coordenadas> coordenadasPosibles) {
+		this.coordenadasPosibles = coordenadasPosibles;
+	}
+
+	public void printCoordenadasPosibles() {
+
+		System.out.println(this.coordenadasPosibles);
+
+	}
+
+	public void setCoor(Coordenadas coor) {
+
+		this.coordenadas = coor;
+
+	}
+
 }
-
-public void printCoordenadasPosibles() {
-	
-	System.out.println(this.coordenadasPosibles);
-	
-}
-public void setCoor(Coordenadas coor) {
-
-	this.coordenadas=coor;
-	
-}
-
-
-}
-

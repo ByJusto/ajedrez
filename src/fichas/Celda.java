@@ -12,9 +12,10 @@ public class Celda {
 		this.ficha=ficha;
 	}
 	
-	public void colocarFicha(Ficha ficha) {
+	public void colocarFicha(Ficha ficha,Coordenadas coordenadas) {
 		
 		this.ficha=ficha;
+		this.ficha.setCoor(coordenadas);
 	}
 	
 	public Celda() {

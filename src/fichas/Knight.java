@@ -8,11 +8,13 @@ public class Knight extends Ficha{
 
 
 	
-	public Knight(Color color,Coordenadas coordenadas) {
+	public Knight(Color color,Coordenadas coordenadas,Tablero t) {
 		super(coordenadas, color);
 
 		this.color=color;
 		this.coordenadas=coordenadas;
+		this.tablero=t;
+
 		
 	}
 	
@@ -31,54 +33,60 @@ public class Knight extends Ficha{
 		return coordenadas;
 		
 	}
-	public void calcularCoordenadas(Celda[][] t) {
+	public void calcularCoordenadas() {
 		
 		coordenadasPosibles.clear();
-		System.out.println(coordenadas);
-		//t[coordenadas.up().up().right().getYInt()][coordenadas.up().up().right().getXInt()].getFicha().getColor();		
-		//try {
-			if(!t[coordenadas.up().up().right().getYInt()][coordenadas.up().up().right().getXInt()].comprobarColor(this.color) && coordenadas.up().up().right().existe()) {
-				coordenadasPosibles.add((coordenadas.up().up().right()));
-				System.out.println("Coordenada Añadida Caballo");
+		
+		Coordenadas c;
+		
+		c = getCoordenadas().up().up().right();
+		if(c.existe())
+			if(tablero.existeColor(c,this.color)) {
+				coordenadasPosibles.add(c);
+				
 
 			}
-			if(!t[coordenadas.up().up().left().getYInt()][coordenadas.up().up().left().getXInt()].comprobarColor(this.color) && coordenadas.up().up().left().existe()) {
-				coordenadasPosibles.add(coordenadas.up().up().left());
-				System.out.println("Coordenada Añadida Caballo");
+			c= getCoordenadas().up().up().left();
+			if(tablero.existeColor(c,this.color)) {
+				coordenadasPosibles.add(c);
 
 			}
-			if(!t[coordenadas.down().down().right().getYInt()][coordenadas.down().down().right().getXInt()].comprobarColor(this.color) && coordenadas.down().down().right().existe()) {
-				coordenadasPosibles.add(coordenadas.down().down().right());
-				System.out.println("Coordenada Añadida Caballo");
+			c= getCoordenadas().down().down().right();
+			if(tablero.existeColor(c,this.color)) {
+				coordenadasPosibles.add(c);
 
 			}
-			if(!t[coordenadas.down().down().left().getYInt()][coordenadas.down().down().left().getXInt()].comprobarColor(this.color) && coordenadas.down().down().left().existe()) {
-				coordenadasPosibles.add(coordenadas.down().down().left());
-				System.out.println("Coordenada Añadida Caballo");
+			c=getCoordenadas().down().down().left();
+			if(tablero.existeColor(c,this.color)) {
+				coordenadasPosibles.add(c);
+				
 
 			}
-			if(!t[coordenadas.right().right().down().getYInt()][coordenadas.right().right().down().getXInt()].comprobarColor(this.color) && coordenadas.right().right().down().existe()) {
-				coordenadasPosibles.add(coordenadas.right().right().down());
-				System.out.println("Coordenada Añadida Caballo");
+			c=getCoordenadas().right().right().down();
+			if(tablero.existeColor(c,this.color)) {
+				coordenadasPosibles.add(c);
 
 			}
-			if(!t[coordenadas.right().right().up().getYInt()][coordenadas.right().right().up().getXInt()].comprobarColor(this.color) && coordenadas.right().right().up().existe()) {
-				coordenadasPosibles.add(coordenadas.right().right().up());
-				System.out.println("Coordenada Añadida Caballo");
+			c= getCoordenadas().right().right().up();
+			if(tablero.existeColor(c,this.color)) {
+				coordenadasPosibles.add(c);
 
 			}
-			if(!t[coordenadas.left().left().down().getYInt()][coordenadas.left().left().down().getXInt()].comprobarColor(this.color) && coordenadas.left().left().down().existe()) {
-				coordenadasPosibles.add(coordenadas.left().left().down());
-				System.out.println("Coordenada Añadida Caballo");
+			c= getCoordenadas().left().left().down();
+			if(tablero.existeColor(c,this.color)) {
+				coordenadasPosibles.add(c);
 
 			}
-			if(!t[coordenadas.left().left().up().getYInt()][coordenadas.left().left().up().getXInt()].comprobarColor(this.color) && coordenadas.left().left().up().existe()) {
-				coordenadasPosibles.add(coordenadas.left().left().up());
-				System.out.println("Coordenada Añadida Caballo");
+			c=getCoordenadas().left().left().up();
+			if(tablero.existeColor(c,this.color)) {
+				coordenadasPosibles.add(c);
 
 			}
 			
-		//}catch (java.lang.NullPointerException | java.lang.ArrayIndexOutOfBoundsException exception) {}
+			
+			
+
+			
 		
 	}
 	public void setCoordenadasPosibles(ArrayList<Coordenadas> coordenadasPosibles) {

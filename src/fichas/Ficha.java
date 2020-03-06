@@ -42,10 +42,15 @@ public abstract class Ficha  {
 	protected Coordenadas coordenadas;
 	protected Color color;
 	protected ArrayList<Coordenadas> coordenadasPosibles = new ArrayList<Coordenadas>();
-
+	protected Tablero tablero;
 
 	public Color getColor() {
 		return this.color;
+	}
+	public Shape getShape() {
+		
+		
+		return shape;
 	}
 	
 	public Coordenadas getCoor() {
@@ -53,11 +58,20 @@ public abstract class Ficha  {
 	}
 
 
+	public void setCoordenadas(Coordenadas c) {
+		
+		this.coordenadas=c;
+		
+		
+	}
+	
 	public Coordenadas getCoordenadas() {
 		return coordenadas;
 	}
 	
-	public abstract void setCoor(Coordenadas coor) ;
+	public void setCoor(Coordenadas coor) {
+		this.coordenadas=coor;
+	}
 
 	
 
@@ -78,8 +92,7 @@ public abstract class Ficha  {
 		this.color = color;
 	}
 
-	public boolean equals(Object object)
-    {
+	public boolean equals(Object object){
         boolean sameSame = false;
 
         if (object != null && object instanceof Coordenadas)
@@ -112,9 +125,12 @@ public abstract class Ficha  {
 
 	}
 	
-	public abstract void calcularCoordenadas(Celda[][] t);
+	public abstract void calcularCoordenadas();
 
 
 
+	
+	
+	
 	
 }

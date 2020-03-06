@@ -43,9 +43,7 @@ public class Coordenadas {
 	}
 
 	public Coordenadas up() {
-		if (this.Y - 1 < 1)
-			return this;
-		else
+
 			return new Coordenadas(this.X, this.Y - 1);
 	}
 
@@ -53,17 +51,17 @@ public class Coordenadas {
 	public boolean existe() {
 		
 		
-		if(this.getXInt()>=8 || this.getYInt() >=8 || this.getXInt()<0 || this.getYInt() <0)
-			return false;
-		else
-			return true;
+			
+			if(this.getXInt()>=8 || this.getYInt() >=8 || this.getXInt()<0 || this.getYInt() <0)
+				return false;
+			else
+				return true;
+		
 	}
 	
 	
 	public Coordenadas down() {
-		if (this.Y + 1 > 8)
-			return this;
-		else
+	
 			return new Coordenadas(this.X, this.Y + 1);
 
 	}
@@ -84,18 +82,14 @@ public class Coordenadas {
 	
 	public Coordenadas right() {
 
-		if ((this.X + 1) > 72)
-			return this;
-		else
+
 			return new Coordenadas((char) (this.X + 1), this.Y);
 
 	}
 
 	public Coordenadas left() {
 
-		if ((this.X - 1) < 65)
-			return this;
-		else
+
 			return new Coordenadas((char) (this.X - 1), this.Y);
 	}
 

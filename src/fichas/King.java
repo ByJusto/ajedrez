@@ -8,10 +8,12 @@ public class King extends Ficha {
 
 
 
-	public King(Color color,Coordenadas coordenadas) {
+	public King(Color color,Coordenadas coordenadas,Tablero t) {
 		super(coordenadas, color);
 		this.color = color;
 		this.coordenadas=coordenadas;
+		this.tablero=t;
+
 
 	}
 		
@@ -34,46 +36,61 @@ public class King extends Ficha {
 		
 	}
 
-public void calcularCoordenadas(Celda[][] t) {
+public void calcularCoordenadas() {
 		
-		//coordenadasPosibles.clear();
-		
-		//t[coordenadas.up().up().right().getYInt()][coordenadas.up().up().right().getXInt()].getFicha().getColor();		
-	//	try {
+
 		//up
-		if(!t[coordenadas.up().getYInt()][coordenadas.up().getXInt()].comprobarColor(this.color) && coordenadas.up().existe()) {
-			coordenadasPosibles.add(coordenadas.up());
+		
+		Coordenadas c;
+		
+		c= getCoordenadas().up();
+		
+		if(tablero.existeColor(c,this.color)) {
+			coordenadasPosibles.add(c);
 		} 
 		//down
-		if(!t[coordenadas.down().getYInt()][coordenadas.down().getXInt()].comprobarColor(this.color) && coordenadas.down().existe()) {
-			coordenadasPosibles.add(coordenadas.down());
+		c= getCoordenadas().down();
+
+		if(tablero.existeColor(c,this.color)) {
+			coordenadasPosibles.add(c);
 		}
 		//right
-		if(!t[coordenadas.right().getYInt()][coordenadas.right().getXInt()].comprobarColor(this.color) && coordenadas.right().existe()) {
-			coordenadasPosibles.add(coordenadas.right());
+		c= getCoordenadas().right();
+
+		if(tablero.existeColor(c,this.color)) {
+			coordenadasPosibles.add(c);
 		}
 		//left
-		if(!t[coordenadas.left().getYInt()][coordenadas.left().getXInt()].comprobarColor(this.color) && coordenadas.left().existe()) {
-			coordenadasPosibles.add(coordenadas.left());
+		c= getCoordenadas().left();
+
+		if(tablero.existeColor(c,this.color)) {
+			coordenadasPosibles.add(c);
 		}
 		//up-right
-		if(!t[coordenadas.up().right().getYInt()][coordenadas.up().right().getXInt()].comprobarColor(this.color) && coordenadas.up().right().existe()) {
-			coordenadasPosibles.add(coordenadas.up().right());
+		c= getCoordenadas().up().right();
+
+		if(tablero.existeColor(c,this.color)) {
+			coordenadasPosibles.add(c);
 		}
 		//up-left
-		if(!t[coordenadas.up().left().getYInt()][coordenadas.up().left().getXInt()].comprobarColor(this.color) && coordenadas.up().down().existe()) {
-			coordenadasPosibles.add(coordenadas.up().left());
+		c= getCoordenadas().up().left();
+
+		if(tablero.existeColor(c,this.color)) {
+			coordenadasPosibles.add(c);
 		}
 		//down-left
-		if(!t[coordenadas.down().left().getYInt()][coordenadas.down().left().getXInt()].comprobarColor(this.color) && coordenadas.down().left().existe()) {
-			coordenadasPosibles.add(coordenadas.down().left());
+		c= getCoordenadas().down().left();
+
+		if(tablero.existeColor(c,this.color)) {
+			coordenadasPosibles.add(c);
 		}
 		//down-right
-		if(!t[coordenadas.down().right().getYInt()][coordenadas.down().right().getXInt()].comprobarColor(this.color) && coordenadas.down().right().existe()) {
-			coordenadasPosibles.add(coordenadas.down().right());
+		c= getCoordenadas().down().right();
+
+		if(tablero.existeColor(c,this.color)) {
+			coordenadasPosibles.add(c);
 		}
 		
-	//	}catch (java.lang.NullPointerException | java.lang.ArrayIndexOutOfBoundsException exception) {}
 
 				
 		
