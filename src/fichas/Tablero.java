@@ -9,20 +9,20 @@ public class Tablero {
 
 	protected Celda[][] tablero = new Celda[8][8];
 	protected int[] nfichas = new int[12];
-	private int wknights=2;
-	private int wrooks=2;
-	private int wbishops=2;
-	private int wqueen=1;
-	private int wking=1;
-	private int wpawns=8;
-	private int bknights=2;
-	private int brooks=2;
-	private int bbishops=2;
-	private int bqueen=1;
-	private int bking=1;
-	private int bpawns=8;
-	private Coordenadas wkingpos;
-	private Coordenadas bkingpos;
+//	private int wknights=2;
+//	private int wrooks=2;
+//	private int wbishops=2;
+//	private int wqueen=1;
+//	private int wking=1;
+//	private int wpawns=8;
+//	private int bknights=2;
+//	private int brooks=2;
+//	private int bbishops=2;
+//	private int bqueen=1;
+//	private int bking=1;
+//	private int bpawns=8;
+	protected Coordenadas wkingpos;
+	protected Coordenadas bkingpos;
 	public Tablero() {
 		
 
@@ -71,12 +71,7 @@ public class Tablero {
 		
 		"\t"+"8"+"\t"+"║ "+printF(7,0)+" │ "+printF(7,1)+" │ "+printF(7,2)+" │ "+printF(7,3)+" │ "+printF(7,4)+" │ "+printF(7,5)+" │ "+printF(7,6)+" │ "+printF(7,7)+" ║"+"\t"+"8"+"\n"+
 		"\t"+" "+"\t"+"╚═══╧═══╧═══╧═══╧═══╧═══╧═══╧═══╝"+"\t"+" "+"\n" +
-		"\t"+" "+"\t"+"  A   B   C   D   E   F   G   H  "+"\t"+" "+"\n"+"\n"+"\n"+
-		"\t"+" "+"╔═══╤═══╤═══╤═══╤═══╤═══╤═══╤═══╤═══╤═══╤═══╤═══╗"+"\t"+" "+"\n"+
-		"\t"+" "+"║ wR │ WKn │ WB │ WQ │ WK │ WP │ BR │ BKn │ BB │ BQ │ BK │ BP ║"+"\t"+" "+"\n"+
-		"\t"+" "+"╟───┼───┼───┼───┼───┼───┼───┼───┼───┼───┼───┼───╢"+"\t"+" "+"\n"+
-		"\t"+" "+"║ "+wrooks+" │ "+wknights+" │ "+wbishops+" │ "+wqueen+" │ "+wking+" │ "+wpawns+" │ "+brooks+" │ "+bknights+" │ "+bbishops+" │ "+bqueen+" │ "+bking+" │ "+bpawns+" ║"+"\t"+" "+"\n"+
-		"\t"+" "+"╚═══╧═══╧═══╧═══╧═══╧═══╧═══╧═══╧═══╧═══╧═══╧═══╝"+"\t"+" "+"\n";
+		"\t"+" "+"\t"+"  A   B   C   D   E   F   G   H  "+"\t"+" "+"\n"+"\n"+"\n";
 	
 
 		
@@ -143,11 +138,16 @@ public class Tablero {
 			return false;
 			
 		}else if(celdaCoor(o).getFicha().getCoordenadasPosibles().contains(d)) {
-			restarContador(d);
+			if(win(d))
+				System.out.println("Has ganado");
 			celdaCoor(d).colocarFicha(celdaCoor(o).getFicha(),d);
 			celdaCoor(o).deleteFicha();
 			System.out.println("Ficha movida a : " + celdaCoor(d).getFicha().getCoor().toString());
+			if(comprobarTrans(d))
+				celdaCoor(d).colocarFicha(new Queen(celdaCoor(d).getFicha().getColor(),d,this) ,d);
+			
 			calculoPos();
+			
 			return true;
 
 			
@@ -302,7 +302,9 @@ public class Tablero {
 		for(int i = 0;i<8;i++) {
 			for(int a =0;a<8;a++) {
 				if(!tablero[i][a].isEmpty()) {
-					tablero[i][a].getFicha().getCoordenadasPosibles().contains(o)
+					if(tablero[i][a].getFicha().getCoordenadasPosibles().contains(bkingpos)||tablero[i][a].getFicha().getCoordenadasPosibles().contains(wkingpos)) {
+						return true;
+					}
 				
 			
 				}
@@ -310,6 +312,30 @@ public class Tablero {
 			
 			
 		}
+		return false;
+		
+	}
+	
+	public boolean win(Coordenadas c) {
+		
+		if(!celdaCoor(c).isEmpty())
+			if(celdaCoor(c).getFicha().toString()== Ficha.Shape.white_king.toString()||celdaCoor(c).getFicha().toString()== Ficha.Shape.black_king.toString())
+				return true;
+			else
+			
+			return false;
+		return false;
+	}
+	
+	public boolean comprobarTrans(Coordenadas c) {
+		
+		if(c.getYInt()==0 || c.getYInt()==7)
+		    if(celdaCoor(c).getFicha().toString()== Ficha.Shape.white_pawn.toString()|| celdaCoor(c).getFicha().toString()==Ficha.Shape.black_pawn.toString())
+		    	return true;
+		    else
+		    	return false;
+		else
+			return false;
 		
 		
 	}

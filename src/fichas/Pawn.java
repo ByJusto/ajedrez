@@ -49,11 +49,12 @@ public void calcularNegro() {
 			if(tablero.existeEmpty(coordenada)) {
 				coordenadasPosibles.add(coordenada);
 				coordenada=getCoordenadas().up().up();
-				if(tablero.celdaCoor(coordenada).isEmpty() && this.coordenadas.getYInt() ==6) {
-					
-					this.coordenadasPosibles.add(coordenada);
-					
-				}
+				if(coordenada.existe())
+					if(tablero.celdaCoor(coordenada).isEmpty() && this.coordenadas.getYInt() ==6) {
+						
+						this.coordenadasPosibles.add(coordenada);
+						
+					}
 				
 			}
 			
@@ -97,10 +98,11 @@ public void calcularBlanco() {
 			coordenadasPosibles.add(coordenada);
 			//down-down
 			coordenada=getCoordenadas().down().down();
-			if(tablero.celdaCoor(coordenada).isEmpty() && this.coordenadas.getYInt() ==1) {
-				this.coordenadasPosibles.add(coordenada);
+			if(coordenada.existe())
+				if(tablero.celdaCoor(coordenada).isEmpty() && this.coordenadas.getYInt() ==1) {
+					this.coordenadasPosibles.add(coordenada);
 				
-			}
+				}
 		}
 		
 		

@@ -101,6 +101,14 @@ public void calcularCoordenadas() {
 public void setCoor(Coordenadas coor) {
 
 	this.coordenadas=coor;
+	if (this.color.equals(Color.white)) {
+
+		this.tablero.wkingpos=this.coordenadas;
+		
+	} else {
+		this.tablero.bkingpos=this.coordenadas;
+	}
+	
 	
 }
 }

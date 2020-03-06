@@ -4,7 +4,7 @@ import java.util.Scanner;
 
 import fichas.Ficha.Color;
 
-public class Test {
+public class Partida {
 
 	public static void main(String[] args) {
 
@@ -20,13 +20,13 @@ public class Test {
 		System.out.println(a.printTablero());
 
 
-		System.out.println("Jugador1(Blancas)");
+		System.out.println("---------------------------Jugador1(Blancas)---------------------------");
 		System.out.println(" ");
-		System.out.println("Jugador2(Negras)");
+		System.out.println("---------------------------Jugador2(Negras)----------------------------");
 		System.out.println(" ");
 		System.out.println(" ");
 
-		System.out.println("Empieza jugando Blancas (Jugador1)");
+		System.out.println("---------------------------Empieza jugando Blancas (Jugador1)----------");
 		System.out.println(" ");
 		System.out.println(" ");
 		System.out.println(" ");
@@ -36,7 +36,7 @@ public class Test {
 		while(!checkmate) {
 			
 			a.calculoPos();
-			System.out.println("Turno de " + turno);
+			System.out.println("---------------------------Turno de " + turno+ "---------------------------");
 			switch (turno) {
 			
 			case "Jugador1":
@@ -47,7 +47,18 @@ public class Test {
 					a.printCoorPos(co);
 
 					cd= crearCoordenadaDestino(co,a);
+					if(a.comprobarJaque()) {
+						System.out.println("!!!!!!!!!!!!!!!JAQUE!!!!!!!!!!!!!!!!!!!!");
+					}
 		
+					if(a.win(cd)) {
+						
+						checkmate=true;
+						System.out.println("");
+						System.out.println("---------------------Ha ganado Jugador1---------------------");
+						System.out.println("");
+
+					}
 					System.out.println(a.printTablero());
 					turno="Jugador2";
 						
@@ -64,15 +75,29 @@ public class Test {
 
 				// creamos la coordenada Destino
 					cd= crearCoordenadaDestino(co,a);
+					if(a.comprobarJaque()) {
+						System.out.println("!!!!!!!!!!!!!!!JAQUE!!!!!!!!!!!!!!!!!!!!");
+					}
 		
 					System.out.println(a.printTablero());
+					if(a.win(cd)) {
+						
+						checkmate=true;
+						System.out.println(" ");
+						System.out.println("---------------------Ha ganado Jugador1---------------------");
+						System.out.println(" ");
+
+					}
 					turno="Jugador1";
 						
 				
 				
 				break;
-			
+				
+
 			}
+			
+
 			
 			
 		}
@@ -103,12 +128,15 @@ public class Test {
 		Scanner sc = new Scanner(System.in);
 		
 		do {
+			System.out.println(" ");
+
 			System.out.println("DESTINO  Introduce coordenada X");
 			sc = new Scanner(System.in);
 	
 			char xd = sc.nextLine().toUpperCase().charAt(0);
-			System.out.println("DESTINO  Introduce coordenada Y");
-	
+			System.out.println(" ");
+			System.out.println("DESTINO  Introduce coordenada Y");	
+			
 			int yd = sc.nextInt();
 			
 			cd= new Coordenadas(xd, yd);
@@ -126,11 +154,15 @@ public class Test {
 		Coordenadas co;
 		Scanner sc = new Scanner(System.in);
 		do {
+			System.out.println(" ");
 			System.out.println("ORIGEN  Introduce coordenada X");
-			
+
+
 			sc = new Scanner(System.in);
 			char xo = sc.nextLine().toUpperCase().charAt(0);
+			System.out.println(" ");
 			System.out.println("ORIGEN  Introduce coordenada Y");
+
 	
 			int yo = sc.nextInt();
 			
