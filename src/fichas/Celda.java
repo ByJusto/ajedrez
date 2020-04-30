@@ -1,3 +1,7 @@
+/*
+ * @author	:	Gabriel Justo Ordoñez
+ * @version	:	20.2.26
+ */
 package fichas;
 
 import fichas.Ficha.Color;
